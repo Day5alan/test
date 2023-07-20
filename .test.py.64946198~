@@ -32,23 +32,12 @@ def application():
 @a.route("/application/apply", methods=['post'])
 def export_data():
   day = request.form
-  exports_data(day)
+  dayalexports_data(day)
   return jsonify(day)
-  
 
-
+@a.route("/show")
 def exports_data(day):
-  with engine.connect() as conn:
-    try:
-      query = text("INSERT INTO form (idname, department, college, location) VALUES (:idname, :department, :college, :location)")
-      conn.execute(query,
-                idname= day['name'],
-                college= day['college'],
-                department= day['department'],
-                location= day['location'])
-      conn.commit()
-    except Exception as e:
-            print("Error inserting data into the database:", e)
+    return jsonify(day)
 
 if __name__ == '__main__':
   a.run(host='0.0.0.0' , debug=True)
