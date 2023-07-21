@@ -22,11 +22,20 @@ def index():
   total = load_details_from_db()
   return render_template("indexss.html", b =jobs, c= total) 
 
-
+def load_dynamic_data():
+  with engine.connect() as con:
+    c= con.execute(text("select * from form"))
+    column_name= c.keys()
+    d = [dict(zip(column_name, row)) for row in c.fetchall()]
+    totals = []
+    for row in d:
+      totals.append(row)
+    return totals
 
 @a.route("/application")
 def application():
-  return render_template("form.html") 
+  totals= load_dynamic_data()
+  return render_template("form.html", i= totals) 
 
 
 @a.route("/application/apply", methods=['post'])
@@ -37,15 +46,16 @@ def export_data():
   
 
 
-def exports_data(day):
+def exports_data(m):
   with engine.connect() as conn:
     try:
-      query = text("INSERT INTO form (idname, department, college, location) VALUES (:idname, :department, :college, :location)")
-      conn.execute(query,
-                idname= day['name'],
-                college= day['college'],
-                department= day['department'],
-                location= day['location'])
+      query = text("INSERT INTO form (college, department, idname, location) VALUES (:college, :department, :idname, :location)")
+      conn.execute(query,{
+                "college": m["college"],
+                "department": m["department"],
+                "idname": m["idname"],
+                "location": m["location"]
+            })
       conn.commit()
     except Exception as e:
             print("Error inserting data into the database:", e)

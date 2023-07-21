@@ -8,29 +8,51 @@
   <title>Document</title>
 </head>
 <body>
-  <div style="text-align: center;">
-    <form action="/application/apply" method="post">
-      <div class="mb-3">
-        <label>NAME</label><br>
-        <input type="text" name="name" placeholder="Kanchana">
-      </div> 
-      <div class="mb-3">
-        <label>DEPARTMENT</label><br>
-        <input type="text" name="department" placeholder="Pandian stores">
-      </div> 
-      <div class="mb-3">
-        <label>COLLEGE</label><br>
-        <input type="text" name="college" placeholder="MUNIYANDI">
-      </div> 
-      <div class="mb-3">
-        <label>LOCATION</label><br>
-        <input type="text" name="location" placeholder="Septic tank">
-      </div>  
-      <div class="mb-3">
-        <input type="submit">
-      </div>
-    </form>
-  </div>
+  <div style="display: flex; flex-direction: row;">
+    <div style="margin-left: 100px;">
+      <table class="table table-striped">
+        <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>DEPARTMENT</th>
+          <th>COLLEGE</th>
+          <th>LOCATION</th>
+        </tr>
+        {% for j in i %}
+        <tr>
+          <td>{{j['id']}}</td>
+          <td>{{j['idname']}}</td>
+          <td>{{j['department']}}</td>
+          <td>{{j['college']}}</td>
+          <td>{{j['location']}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div style=" margin-left: 150px;">
+      <form action="/application/apply" method="post">
+        <div class="mb-3">
+          <label>NAME</label><br>
+          <input type="text" name="idname" placeholder="Kanchana">
+        </div> 
+        <div class="mb-3">
+          <label>DEPARTMENT</label><br>
+          <input type="text" name="department" placeholder="Pandian stores">
+        </div> 
+        <div class="mb-3">
+          <label>COLLEGE</label><br>
+          <input type="text" name="college" placeholder="MUNIYANDI">
+        </div> 
+        <div class="mb-3">
+          <label>LOCATION</label><br>
+          <input type="text" name="location" placeholder="Septic tank">
+        </div>  
+        <div class="mb-3">
+          <input type="submit">
+        </div>
+      </form>
+    </div>
+  </div>  
   <div style="text-align: center; margin-top: 150px;">
     <a href="/" type="button" class="btn btn-primary " style=" width: 10%; height: 50%;">BACK</a>
   </div>
